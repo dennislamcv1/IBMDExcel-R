@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/styles/sn.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-RP0203EN-SkillsNetwork/labs/Final%20Project/images/IDSNlogo.png" width="200" height="200">
+    <h1>Final Peer-Graded Assignment Overview</h1>
+    <p><strong>Estimated time needed:</strong> 10 minutes</p>
+    <h2>Assignment Scenario</h2>
+    <p>Imagine you have just been hired by a US Venture Capital firm as a data scientist.</p>
+    <p>The company is considering foreign grain markets to help meet its supply chain requirements for its recent investments in the microbrewery and microdistillery industry, which is involved with the production and distribution of craft beers and spirits.</p>
+    <p>Your first task is to provide a high level analysis of crop production in Canada. Your stakeholders want to understand the current and historical performance of certain crop types in terms of supply and price. For now they are mainly interested in a macro-view of Canada's crop farming industry, and how it relates to the relative value of the Canadian and US dollars.</p>
+    <p>You will be asked questions that will help you understand the data just like a data analyst or data scientist would. You will also be asked to create four tables in Db2, and load the tables using the provided datasets from R using the RODBC package. You will be assessed both on the correctness of your SQL queries and results, as well as the correctness of your table creation and data loading results.</p>
+    <p>An R based Jupyter notebook has been provided to help with completing this assignment. Follow the instructions to complete all the problems. Then share your solutions with your peers for reviewing.</p>
+    <h2>Objectives</h2>
+    <ol>
+      <li>Understand four datasets</li>
+      <li>Load the datasets into four separate tables in a Db2 database</li>
+      <li>Execute SQL queries using the RODBC R package to answer assignment questions</li>
+    </ol>
+    <p>You have already encountered two of these datasets in the previous practice lab, and you will be able to reuse much of the work you did there to successfully prepare your database tables for executing SQL queries.</p>
+    <h2>Exercise 1 : Understand the datasets</h2>
+    <p>To complete the assignment problems in the notebook you will be using subsetted snapshots of two datasets from Statistics Canada, and two samll datasets created from a third datasource from the Bank of Canada. The links to the prepared datasets are provided in the next section; interested students can explore the landing pages for the source datasets as follows:</p>
+    <ol>
+      <li><a href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3210035901">Canadian Principal Crops (Data &#x26; Metadata)</a></li>
+      <li><a href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3210007701">Farm product prices (Data &#x26; Metadata)</a></li>
+      <li><a href="https://www.bankofcanada.ca/rates/exchange/daily-exchange-rates">Bank of Canada daily average exchange rates</a></li>
+    </ol>
+    <h3>1. Canadian Principal Crops Data *</h3>
+    <p>This dataset contains agricultural production measures for the principle crops grown in Canada, including a breakdown by province and teritory, for each year from 1908 to 2020.</p>
+    <p>For this assignment you will use a preprocessed snapshot of this dataset (see next section for the link).</p>
+    <p>
+      A detailed description of this dataset can be obtained from the StatsCan Data Portal at:
+      <a href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3210035901&#x26;cm_mmc=Email_Newsletter-_-Developer_Ed%2BTech-_-WW_WW-_-SkillsNetwork-Courses-IBM-RP0203EN-SkillsNetwork-23863830&#x26;cm_mmca1=000026UJ&#x26;cm_mmca2=10006555&#x26;cm_mmca3=M12345678&#x26;cvosrc=email.Newsletter.M12345678&#x26;cvo_campaign=000026UJ&#x26;cm_mmc=Email_Newsletter-_-Developer_Ed%2BTech-_-WW_WW-_-SkillsNetwork-Courses-IBM-RP0203EN-SkillsNetwork-23863830&#x26;cm_mmca1=000026UJ&#x26;cm_mmca2=10006555&#x26;cm_mmca3=M12345678&#x26;cvosrc=email.Newsletter.M12345678&#x26;cvo_campaign=000026UJ" target="_blank" rel="external">https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3210035901</a><br>Detailed information is included in the metadata file and as header text in the data file, which can be downloaded - look for the 'download options' link.
+    </p>
+    <h3>2. Farm product prices</h3>
+    <p>This dataset contains monthly average farm product prices for Canadian crops and livestock by province and teritory, from 1980 to 2020.</p>
+    <p>For this assignment you will use a preprocessed snapshot of this dataset (see next section for the link).</p>
+    <p>
+      A description of this dataset can be obtained from the StatsCan Data Portal at:
+      <a href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3210007701&#x26;cm_mmc=Email_Newsletter-_-Developer_Ed%2BTech-_-WW_WW-_-SkillsNetwork-Courses-IBM-RP0203EN-SkillsNetwork-23863830&#x26;cm_mmca1=000026UJ&#x26;cm_mmca2=10006555&#x26;cm_mmca3=M12345678&#x26;cvosrc=email.Newsletter.M12345678&#x26;cvo_campaign=000026UJ" target="_blank" rel="external">https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3210007701</a>
+      The information is included in the metadata file, which can be downloaded - look for the 'download options' link.
+    </p>
+    <h3>3. Bank of Canada daily average exchange rates *</h3>
+    <p>This dataset contains the daily average exchange rates for multiple foreign currencies. Exchange rates are expressed as 1 unit of the foreign currency converted into Canadian dollars. It includes only the latest four years of data, and the rates are published once each business day by 16:30 ET.</p>
+    <p>For this assignment you will use a snapshot of this dataset with only the USD-CAD exchange rates included (see next section). We have also prepared a monthly averaged version which you will be using below.</p>
+    <p>
+      A brief description of this dataset and the original dataset can be obtained from the Bank of Canada Data Portal at:
+      <a href="https://www.bankofcanada.ca/rates/exchange/daily-exchange-rates?cm_mmc=Email_Newsletter-_-Developer_Ed%2BTech-_-WW_WW-_-SkillsNetwork-Courses-IBM-RP0203EN-SkillsNetwork-23863830&#x26;cm_mmca1=000026UJ&#x26;cm_mmca2=10006555&#x26;cm_mmca3=M12345678&#x26;cvosrc=email.Newsletter.M12345678&#x26;cvo_campaign=000026UJ" target="_blank" rel="external">https://www.bankofcanada.ca/rates/exchange/daily-exchange-rates/</a>
+    </p>
+    <p>( * these datasets are the same as the ones you used in the practice lab)</p>
+    <h3>Dataset URLs</h3>
+    <ol>
+      <li>
+        <p>Annual Crop Data: <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-RP0203EN-SkillsNetwork/labs/Final%20Project/Annual_Crop_Data.csv" target="_blank" rel="external">Annual_Crop_Data.csv</a></p>
+      </li>
+      <li>
+        <p>Daily FX Data: <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-RP0203EN-SkillsNetwork/labs/Final%20Project/Daily_FX.csv" target="_blank" rel="external">Daily_FX.csv</a></p>
+      </li>
+      <li>
+        <p>Monthly Farm Prices: <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-RP0203EN-SkillsNetwork/labs/Final%20Project/Monthly_Farm_Prices.csv" target="_blank" rel="external">Monthly_Farm_Prices.csv</a></p>
+      </li>
+      <li>
+        <p>Monthly FX Data: <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-RP0203EN-SkillsNetwork/labs/Final%20Project/Monthly_FX.csv" target="_blank" rel="external">Monthly_FX.csv</a></p>
+      </li>
+    </ol>
+    <p><strong>IMPORTANT:</strong> You will be loading these datasets directly into R data frames from these URLs instead of from the StatsCan and Bank of Canada portals. The versions provided at these URLs are simplified and subsetted versions of the original datasets.</p>
+    <h2>Exercise 2 : Load these datasets into four separate Db2 tables.</h2>
+    <p>
+      In this exercise, you will prepare the database so you can solve problems using SQL in the last portion of the assignemnt, Exercise 3.
+      You will create four tables and load the datasets into them. Perform this step in the provided Jupyter notebook.
+    </p>
+    <h5>Problem 1: Create tables</h5>
+    <p>Establish a connection to the Db2 database, and create the following four tables using the RODBC package in R.</p>
+    <ol>
+      <li><strong>CROP_DATA</strong></li>
+      <li><strong>FARM_PRICES</strong></li>
+      <li><strong>DAILY_FX</strong></li>
+      <li><strong>MONTHLY_FX</strong></li>
+    </ol>
+    <p>The previous practice lab will help you accomplish this.</p>
+    <h5>Problem 2: Read Datasets and Load Tables</h5>
+    <p>You will read the datasets directly into R dataframes using the urls provided above, and use these to load the tables you created.</p>
+    <h2>Exercise 3: Execute SQL queries using the RODBC R package</h2>
+    <h5>Problem 3: How many records are in the farm prices dataset?</h5>
+    <h5>Problem 4: Which provinces are included in the farm prices dataset?</h5>
+    <h5>Problem 5: How many hectares of Rye were harvested in Canada in 1968?</h5>
+    <h5>Problem 6: Query and display the first 6 rows of the farm prices table for Rye.</h5>
+    <h5>Problem 7: Which provinces grew Barley?</h5>
+    <h5>Problem 8: Find the first and last dates for the farm prices data.</h5>
+    <h5>Problem 9: Which crops have ever reached a farm price greater than or equal to $350 per metric tonne?</h5>
+    <h5>Problem 10: Rank the crop types harvested in Saskatchewan in the year 2000 by their average yield. Which crop performed best?</h5>
+    <h5>Problem 11: Rank the crops and geographies by their average yield (KG per hectare) since the year 2000. Which crop and province had the highest average yield since the year 2000?</h5>
+    <h5>Problem 12: Use a subquery to determine how much wheat was harvested in Canada in the most recent year of the data.</h5>
+    <h5>Problem 13: Use an implicit inner join to calculate the monthly price per metric tonne of Canola grown in Saskatchewan in both Canadian and US dollars. Display the most recent 6 months of the data.</h5>
+    <h2>Submissions</h2>
+    <p><strong>How to Submit:</strong></p>
+    <p>A screenshot in JPEG format is required to be submitted for solution to each of the problems. The screenshot for each problem should clearly show the SQL query and results for the query. The screenshots will be uploaded in the following sections.</p>
+    <p><strong>Example Submissions:</strong></p>
+    <p>Here is an example of a submission clearly showing both the SQL Query and its Results/output, when executed from a Jupyter notebook.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-RP0203EN-SkillsNetwork/labs/Final%20Project/images/R_SQL_EX_SUBMISSION.png" width="700">
+    <p>Important aspects of the submission are highlighted below for illustrative purposes:</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-RP0203EN-SkillsNetwork/labs/Final%20Project/images/R_SQL_EX_SUBMISSION_wCaptions.png" width="900">
+    <h2>Grading Scheme</h2>
+    <p>There are 25 total points possible for this assignment. Here is the breakdown:</p>
+    <ul>
+      <li>Problem 1: 2 Points</li>
+      <li>Problem 2: 2 Points</li>
+      <li>Problem 3: 1 Points</li>
+      <li>Problem 4: 1 Points</li>
+      <li>Problem 5: 1 Points</li>
+      <li>Problem 6: 1 Points</li>
+      <li>Problem 7: 2 Points</li>
+      <li>Problem 8: 2 Points</li>
+      <li>Problem 9: 2 Points</li>
+      <li>Problem 10: 2 Points</li>
+      <li>Problem 11: 3 Points</li>
+      <li>Problem 12: 3 Points</li>
+      <li>Problem 13: 3 Points</li>
+    </ul>
+    <p>For each problem points will be awarded as follows:</p>
+    <ul>
+      <li>Table Creation and Data Loading:
+        <ul>
+          <li>Full points: Used a correct commands that yielded a correct result</li>
+          <li>Half or partial points: The results are not fully correct</li>
+          <li>No points: Did not attempt the problem or did not upload any solution</li>
+        </ul>
+      </li>
+    </ul>
+    <ul>
+      <li>SQL queries:
+        <ul>
+          <li>Full points: Used a correct SQL query that yielded a correct result</li>
+          <li>Half or partial points: The query and results are not fully correct</li>
+          <li>No points: Did not attempt the problem or did not upload any solution</li>
+        </ul>
+      </li>
+    </ul>
+    <h2>Author(s)</h2>
+    <p>Jeff Grossman</p>
+    <h3>Other Contributor(s)</h3>
+    <p>Rav Ahuja</p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2021-04-01</td>
+          <td>0.2</td>
+          <td>Jeff Grossman</td>
+          <td>Replaced screenshots</td>
+        </tr>
+        <tr>
+          <td>2021-03-12</td>
+          <td>0.1</td>
+          <td>Jeff Grossman</td>
+          <td>Initial version created</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.min.js"></script>
+  </body>
+</html>
