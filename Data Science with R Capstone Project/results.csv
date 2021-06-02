@@ -1,0 +1,6 @@
+﻿Model,RMSE,R2
+Linear,436.95,0.523
+Ridge,436.93,0.523
+Lasso,437.71,0.521
+Elastic Net,495.82,0.385
+Polynomial,584.32,0.147
