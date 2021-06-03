@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <center>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0101EN-SkillsNetwork/labs/Module%204/logo.png" width="300" alt="cognitiveclass.ai logo">
+    </center>
+    <h1>Final Project</h1>
+    <p>Estimated time needed: <strong>60</strong> minutes</p>
+    <h3>Objectives</h3>
+    <p>You work for a company who provides career services for those with lower incomes. The marketing team has a small budget and wants your help to find out which demographics (age, education, gender, etc) to target advertise to in the US. You will create an interactive dashboard with Shiny to explore census data to figure out what trends in different demographics you can find and tell the marketing team your findings.</p>
+    <h3>Dataset Used</h3>
+    <p>The dataset you will use is the <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/5fcc01b02d8f0e50af8972dc8963f98e?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDV0151ENSkillsNetwork26095306-2021-01-01&#x26;context=cpdaas" target="_blank" rel="external">UCI Adult dataset</a>. The dataset was taken from the Census database and contains demographic information on people. The variables you will focus on are:</p>
+    <ul>
+      <li><code>native_country</code>: the person's native country</li>
+      <li><code>age</code>: age of person</li>
+      <li><code>hours_per_week</code>: number of hours the person works per week</li>
+      <li><code>education</code>: education level</li>
+      <li><code>workclass</code>: class of work like federal government or private etc.</li>
+      <li><code>sex</code>: male or female</li>
+      <li><code>prediction</code>: the income level, either <code>"&#x3C;=50K"</code> or <code>">50K"</code>, you will facet your graphs by this variable</li>
+    </ul>
+    <h3>RStudio with Watson Studio</h3>
+    <p>This project will use Watson Studio to run RStudio so that you do not need to install anything locally. Before starting the project, there will be instructions on how to set up your Watson Studio project to run RStudio.</p>
+    <h1>Let's start creating the Shiny dashboard</h1>
+    <h3>Goal</h3>
+    <p>Create a dashboard with the UCI Adult dataset that can give insight on the following questions:</p>
+    <ul>
+      <li>Does education level impact the salary?</li>
+      <li>Impact of age and sex on salary?</li>
+      <li>People from which native countries are given less income in spite of having good education?</li>
+      <li>Does number of hours working contribute to less income?</li>
+      <li>Which workclass faces less income?</li>
+    </ul>
+    <h3>Expected Output</h3>
+    <p>Below is the expected result of the project. The dashboard will allow users to select the native country of people to look at. Then users can select which continuous variables to display, age or hours per week. For the continuous variables, the user can choose to display a histogram or boxplot. Both types of graphs are faceted by the income level (<code>"&#x3C;=50K"</code> or <code>">50K"</code>)</p>
+    <p>In the next section, the user can choose which categorical variables to plot with a bar chart. There is also a checkbox to stack the bar charts or facet them by income level (<code>"&#x3C;=50K"</code> or <code>">50K"</code>).</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DV0151EN-SkillsNetwork/labs/module_4/images/final.gif" width="800">
+    <h3>This project includes the following tasks:</h3>
+    <ol>
+      <li>Add application title in the UI</li>
+      <li>Add first fluidRow to select input for country in UI</li>
+      <li>Add second fluidRow to control how to plot the continuous variables in UI</li>
+      <li>Add third fluidRow to control how to plot the categorical variables in UI</li>
+      <li>Create logic to plot histogram or boxplot in server</li>
+      <li>Create logic to plot faceted bar chart or stacked bar chart in server</li>
+      <li>Optionally change the themes to the graphs</li>
+    </ol>
+    <p>Before starting these tasks, you will first set up Watson Studio to run RStudio. Then, you will download and become familiar with the starter code. The next two sections will guide you with these.</p>
+    <h1>Launch RStudio in IBM Watson Studio</h1>
+    <p>RStudio is the perfect development tool for R Shiny. Thus, in this project, you will be building the R Shiny app using RStudio, hosted by IBM Watson Studio.</p>
+    <ol>
+      <li>
+        <p>First, make sure you have IBM Watson Studio setup and create a project, follow <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-RP0101EN-Coursera/v2/M5_Final/lab1-iframe-watson-studio-r.md.html?origin=www.coursera.org" target="_blank" rel="external">this guide</a> for help.</p>
+      </li>
+      <li>
+        <p>In the Watson Studio project, click on "New Data asset" to add the two starter code files (ui.R, server.R) and the data file (adult.csv) to the project.</p>
+      </li>
+      <li>
+        <p>To launch RStudio, click on the <code>Launch IDE</code> drop down menu, then click on <code>RStudio</code>.</p>
+      </li>
+    </ol>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DV0151EN-SkillsNetwork/labs/module_4/images/3_launch_rstudio.png" width="800">
+    <ol start="4">
+      <li>
+        You will then be asked to choose a run time. You can select any. Click on "Launch".
+        
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DV0151EN-SkillsNetwork/labs/module_4/images/4_choose_runtime.png" width="500">
+      </li>
+    </ol>
+    <p>You will be directed to the RStudio IDE. Now you are all set up in Watson Studio to get started on the project.</p>
+    <h1>Download and understand the starter code</h1>
+    <p>As you learned, a Shiny app contains two parts: the UI and the server. You are given these two files with some starer code to begin. Throughout the code, you will see comments such as "TASK 1" to help guide you.</p>
+    <h3>Download starter code</h3>
+    <p>In the RStudio console, run the commands to download the two R files and the dataset to start.</p>
+    <pre><code class="hljs language-r"><span class="hljs-comment"># UI starter code</span>
+url &#x3C;- <span class="hljs-string">"https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DV0151EN-SkillsNetwork/labs/module_4/starter_code/ui.R"</span>
+download.file(url, destfile = <span class="hljs-string">"ui.R"</span>)
+
+<span class="hljs-comment"># Server starter code</span>
+url &#x3C;- <span class="hljs-string">"https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DV0151EN-SkillsNetwork/labs/module_4/starter_code/server.R"</span>
+download.file(url, destfile = <span class="hljs-string">"server.R"</span>)
+
+<span class="hljs-comment"># Dataset</span>
+url &#x3C;- <span class="hljs-string">"https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DV0151EN-SkillsNetwork/labs/module_4/starter_code/adult.csv"</span>
+download.file(url, destfile = <span class="hljs-string">"adult.csv"</span>)
+</code></pre>
+    <p>Once these files have downloaded, click on these files to open them.</p>
+    <h3>ui.R</h3>
+    <p>
+      You will work on the UI code in the first four tasks, then move on to the server code.
+      First, it loads the shiny library, if you want to run this locally make sure to install first:
+    </p>
+    <pre><code class="hljs language-r">install.packages(<span class="hljs-string">"shiny"</span>)
+</code></pre>
+    <p>Then, the UI uses a fluid row layout, which you have learned about but not used in the labs so far. The base code will give a skeleton of the layout. To help you understand it more, see the below section.</p>
+    <h4>Fluid Row Layouts</h4>
+    <p>In the past lessons you learned more about using the sidebar layout and the vertical layout. In this project, you will use <a href="https://shiny.rstudio.com/reference/shiny/1.4.0/fluidPage.html?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDV0151ENSkillsNetwork26095306-2021-01-01" target="_blank" rel="external">fluid rows</a> which allows for more customization.</p>
+    <p>You can think of each fluidRow as having 12 columns, so all the widths should add up to 12. For example:</p>
+    <pre><code class="hljs language-isbl"><span class="hljs-variable">ui</span> &#x3C;- <span class="hljs-function"><span class="hljs-title">fluidPage</span>(
+ <span class="hljs-title">fluidRow</span>(
+     <span class="hljs-title">column</span>(<span class="hljs-variable">width</span> = <span class="hljs-number">4</span>),
+     <span class="hljs-title">column</span>(<span class="hljs-variable">width</span> = <span class="hljs-number">8</span>)</span>
+ ),
+ <span class="hljs-function"><span class="hljs-title">fluidRow</span>(<span class="hljs-title">column</span>(<span class="hljs-variable">width</span> = <span class="hljs-number">12</span>))</span>
+)
+</code></pre>
+    <p>Which would look like:</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DV0151EN-SkillsNetwork/labs/module_4/images/fluid_layout.png" width="300">
+    <p>Now, for this application, we want the layout to look like:</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DV0151EN-SkillsNetwork/labs/module_4/images/project_layout.png" width="800">
+    <p>The first four tasks will walk you through the title panel and then each <strong>row</strong> of the layout.</p>
+    <p>Additionally in the starter code, you will see <code>wellPanel()</code> used. <a href="https://shiny.rstudio.com/reference/shiny/0.11/wellPanel.html?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDV0151ENSkillsNetwork26095306-2021-01-01" target="_blank" rel="external">Well panels</a> simply just hold other objects, like a group of input widgets. They create a panel with a border and gray background. For example, you could put a selectInput and radioButtons inside a well panel like so:</p>
+    <pre><code class="hljs language-r">fluidRow(
+     column(width = <span class="hljs-number">4</span>,
+       wellPanel(
+         selectInput(...),
+         radioButtons(...))
+       ),
+     column(width = <span class="hljs-number">8</span>, plotOutput(<span class="hljs-string">'p1'</span>))
+)
+</code></pre>
+    <h3>server.R</h3>
+    <p>
+      After completing the UI, you will work on the server code.
+      Inside the <code>shinyServer()</code>, there is first this given code
+    </p>
+    <pre><code class="hljs language-clojure">df_country &#x3C;- reactive({
+  adult %>% filter(<span class="hljs-name">native_country</span> == input$country)
+})
+</code></pre>
+    <p>This uses the input value <code>country</code> to filter the dataset. The new data is stored as <code>df_country</code> and can be accessed using <code>df_country()</code>.</p>
+    <p>There are two parts for you to complete</p>
+    <ul>
+      <li>The histogram and boxplot section. Based on the input graph type, you will create a histogram or boxplot, both will be faceted by the <code>prediction</code> (which is either <code>"&#x3C;=50K"</code> or <code>">50K"</code>).</li>
+      <li>The bar chart. Based on the check box <code>is_stacked</code>, you will create a stacked bar chart or a bar chart faceted by <code>prediction</code>.</li>
+    </ul>
+    <p>The <code>...</code> will be where you modify the code.</p>
+    <p>Now that you understand the UI and server starter code, let's get started.</p>
+    <h1>TASK 1 - Add application title in the UI</h1>
+    <p>In the ui.R file, add a title to the application with <code>titlePanel()</code>.</p>
+    <h1>TASK 2 - Add first fluidRow to select input for country in UI</h1>
+    <p>In the first fluidRow, add a <code>selectInput()</code> in the <code>wellPanel()</code>. This select input will be used to filter the data by the person's native country. Use the ID <code>country</code>, give it any label you think fits, and as <code>choices</code> use the five countries: <code>"United-States", "Canada", "Mexico", "Germany", "Philippines"</code></p>
+    <h1>TASK 3 - Add second fluidRow to control how to plot the continuous variables in UI</h1>
+    <p>In the second fluidRow, add two <code>radioButtons</code> and the output plot.</p>
+    <ul>
+      <li>The first radio buttons are to choose <code>"continuous_variable"</code> (input ID), the choices are <code>"age"</code> and <code>"hours_per_week"</code>. Add a label.</li>
+      <li>The second radio buttons are to choose the "<code>graph_type</code>" (input ID), the choices are <code>"histogram"</code> and <code>"boxplot"</code>. Add a label.</li>
+      <li>Add a plot output, <code>"p1"</code>, with <code>plotOutput()</code></li>
+    </ul>
+    <p><strong>Hint</strong>: You can always find more information about functions by going in the RStudio console and using for example</p>
+    <pre><code class="hljs language-ruby"><span class="hljs-string">?r</span>adioButtons
+</code></pre>
+    <h1>TASK 4 - Add third fluidRow to control how to plot the categorical variables in UI</h1>
+    <p>In the last fluidRow, you will add <code>radioButtons()</code>, <code>checkboxInput()</code>, and the output plot.</p>
+    <ul>
+      <li>Add the radio buttons to select the <code>"categorical_variable"</code> (input ID) with choices <code>"education"</code>, "<code>workclass</code>", and "<code>sex</code>". Add a label as well.</li>
+      <li>Add a checkbox to check if the bars <code>"is_stacked"</code> (input ID), that is, if the checkbox is checked then the bars will be stacked. Otherwise, they will be faceted and unstacked. Add a label. The initial <code>value</code> can be either <code>FALSE</code> or <code>TRUE</code>.</li>
+      <li>Add a plot output, <code>"p2"</code>, with <code>plotOutput()</code></li>
+    </ul>
+    <h4>Test UI code</h4>
+    <p>You have completed the UI code. If you want to test that it is working, in the server.R file you can comment out everything in <code>shinyServer()</code> so that the server side functions doesn't break. Or you could clear everything in <code>shinyServer()</code> like:</p>
+    <pre><code class="hljs language-hy">shinyServer(<span class="hljs-name">function</span>(<span class="hljs-name"><span class="hljs-builtin-name">input</span></span>, output) {
+
+})
+</code></pre>
+    <p>Then if you click <code>Run App</code>, you should see all the components and input widgets like the image below</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DV0151EN-SkillsNetwork/labs/module_4/images/task4_blank_app.png" width="800">
+    <p>You will notice that the graphs are not there, this logic will be handled in the server code.</p>
+    <h1>TASK 5 - Create logic to plot histogram or boxplot in server</h1>
+    <p>You can now go to the server.R file. Follow the comments and fill in the <code>...</code>. The input variable you want to use for the histogram and boxplot is the continuous variable.</p>
+    <p>The first part will be to complete the histogram and boxplot logic. There is a conditional statement, so if the graph type the user input with the radio button is "histogram", then you will plot a histogram. You will</p>
+    <ul>
+      <li>add the continuous variable to use for the x-axis,</li>
+      <li>add the labels for the y axis and title, and</li>
+      <li>facet the graph by <code>prediction</code></li>
+    </ul>
+    <p>Otherwise, create a boxplot. You will:</p>
+    <ul>
+      <li>add the continuous variable to use for the y-axis,</li>
+      <li>flip the coordinates</li>
+      <li>add the labels for the y axis and title, and</li>
+      <li>facet the graph by <code>prediction</code></li>
+    </ul>
+    <h4>Hints:</h4>
+    <ul>
+      <li>You can use something like <code>input$continuous_variable</code> to get the input IDs you set in the UI.</li>
+      <li>In ggplot, you used <code>aes()</code> before. There is another similar function called <code>aes_string()</code>. The difference is that it takes as inputs strings. For example: <code>ggplot(mtcars, aes(mpg))</code> is equivalent to <code>ggplot(mtcars, aes_string("mpg"))</code>. When you call <code>input$continuous_variable</code>, it will give you back a string so you can use <code>aes_string(x = input$continuous_variable)</code>.</li>
+      <li>Facet your plots using <code>facet_warp(~variable)</code></li>
+      <li>You can use <code>paste()</code> to paste together strings</li>
+    </ul>
+    <p>To test your work, you can comment out all of the "TASK 6" code and select <code>Run App</code>. Try changing the country and try the different options for radio buttons "Continuous" and "Graphs". Your dashboard should look similar to:</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DV0151EN-SkillsNetwork/labs/module_4/images/task5.png" width="800">
+    <h1>TASK 6 - Create logic to plot faceted bar chart or stacked bar chart in server</h1>
+    <p>The final section of the dashboard is the bar chart. Follow the comments and fill in the <code>...</code>. The input variable you want to use for the bar chart is the categorical variable.</p>
+    <p>The first part is a base ggplot object <code>p</code>. You will have to:</p>
+    <ul>
+      <li>add the categorical variable to use for the x-axis,</li>
+      <li>add the labels for the y axis and title, and</li>
+      <li>change the theme so that
+        <ul>
+          <li>the x axis text labels are at a 45 degree angle</li>
+          <li>the legend position is the bottom</li>
+        </ul>
+      </li>
+    </ul>
+    <p>The geometry object (bar) will be different based on a condition. If the check box is checked, then you will:</p>
+    <ul>
+      <li>create a stacked bar chart that uses <code>prediction</code> as the fill</li>
+    </ul>
+    <p>Otherwise, you will:</p>
+    <ul>
+      <li>create a bar chart (not stacked) faceted by <code>prediction</code>, the fill should be the input categorical variable</li>
+    </ul>
+    <h4>Hints:</h4>
+    <ul>
+      <li>You can use something like <code>input$categorical_variable</code> to get the input IDs you set in the UI</li>
+      <li>You can use <code>aes_string()</code> in <code>geom_bar</code> to change the <code>fill</code></li>
+      <li>To change the x-axis text angle, use parameter <code>axis.text.x</code> in <code>theme()</code>
+        <ul>
+          <li>since you are changing the text, use <code>element_text()</code> and modify the <code>angle</code> parameter</li>
+        </ul>
+      </li>
+      <li>To change the legend position, use parameter <code>legend.position</code> in <code>theme()</code></li>
+      <li>Facet your plots using <code>facet_warp(~variable)</code></li>
+      <li>You can use <code>paste()</code> to paste together strings</li>
+    </ul>
+    <h1>TASK 7 - Optionally change the themes to the graphs</h1>
+    <p>Feel free to add any more customizations to the graphs. You can add a different theme or color palettes to any of the plots. If you want to use <code>ggthemes</code> in RStudio in Watson Studio, install the package first:</p>
+    <pre><code class="hljs language-stylus">install<span class="hljs-selector-class">.packages</span>(<span class="hljs-string">"ggthemes"</span>)
+<span class="hljs-function"><span class="hljs-title">library</span><span class="hljs-params">(ggthemes)</span></span>
+</code></pre>
+    <h1>Submitting</h1>
+    <p>Congratulations, you have completed the Shiny dashboard! To test that it's working, click <code>Run App</code>. It may take a few seconds for the graphs to load initially. You can play around with the dashboard and see what kinds of insights you can find.</p>
+    <p>To submit your project, you will take screen shots of components of your dashboard and a peer will review your work. Below is an image that breaks down what area of the dashboard you should submit for each task for the peer review.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DV0151EN-SkillsNetwork/labs/module_4/images/submissions.png" width="800">
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/tiffany-zhu1/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDV0151ENSkillsNetwork26095306-2021-01-01" target="_blank" rel="external">Tiffany Zhu</a></p>
+    <p><a href="https://www.linkedin.com/in/saishruthi-swaminathan/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDV0151ENSkillsNetwork26095306-2021-01-01" target="_blank" rel="external">Saishruthi Swaminathan</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2021-05-11</td>
+          <td>1.0</td>
+          <td>Tiffany Zhu</td>
+          <td>Created the initial version</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>
