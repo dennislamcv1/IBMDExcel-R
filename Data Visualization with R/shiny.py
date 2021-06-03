@@ -34,13 +34,13 @@ st.header("UCI Adult Dataset")
 st.write(df.head())
 
 
-# In[5]:
+# In[ ]:
 
 
 #df["native_country"].unique()
 
 
-# In[6]:
+# In[5]:
 
 
 country = ['United-States', 'Mexico', 'Greece', 'Vietnam', 'China',
@@ -55,7 +55,7 @@ country = ['United-States', 'Mexico', 'Greece', 'Vietnam', 'China',
 st.selectbox("Country:", options=country)
 
 
-# In[7]:
+# In[6]:
 
 
 #st.text("Select a continuous variable and graph type (histogram or boxplot) to view on the right")
@@ -66,7 +66,41 @@ continuous = st.radio("Continuous", ("age","hours per week"))
 graph1 = st.radio("Graph:", ("Histogram","Boxplot"))
 
 
-# In[8]:
+# In[ ]:
+
+
+# fig, ax = plt.subplots(1,2, sharex=False, figsize=(16,5))
+
+# sns.histplot(x="age", data=df, hue_order=df.income, ax=ax[0])
+# ax[0].set_title('Title of the first chart')
+
+# sns.histplot(x="hours_per_week", data=df, hue_order=df.income, ax=ax[1])
+# ax[1].set_title('Title of the second chart')
+
+# plt.show()
+
+
+# In[42]:
+
+
+g = sns.FacetGrid(data=df, col="income", height=5, aspect=1)
+g.map(plt.hist, "age")
+plt.suptitle("Trend of Age", x=0.1, y=1.1, fontsize=30)
+plt.show()
+st.pyplot(g)
+
+
+# In[37]:
+
+
+g = sns.FacetGrid(data=df, col="income", height=5, aspect=1)
+g.map(plt.hist, "hours_per_week")
+plt.suptitle("Trend of Hours Per Week", x=0.2, y=1.1, fontsize=30)
+plt.show()
+st.pyplot(g)
+
+
+# In[ ]:
 
 
 # fighist1 = px.histogram(data_frame=df, x="age", title="Trend of Age")
@@ -78,18 +112,18 @@ graph1 = st.radio("Graph:", ("Histogram","Boxplot"))
 # fighist2.show()
 
 
-# In[9]:
+# In[ ]:
 
 
-fighist1 = px.histogram(data_frame=df, x="age", title="Trend of Age")
-st.plotly_chart(fighist1)
+# fighist1 = px.histogram(data_frame=df, x="age", title="Trend of Age")
+# st.plotly_chart(fighist1)
 
 
-fighist2 = px.histogram(data_frame=df, x="hours_per_week", title="Trend of Hours Per Week")
-st.plotly_chart(fighist2)
+# fighist2 = px.histogram(data_frame=df, x="hours_per_week", title="Trend of Hours Per Week")
+# st.plotly_chart(fighist2)
 
 
-# In[10]:
+# In[ ]:
 
 
 # figbox1 = px.box(data_frame=df, x="age", title="Trend of Age", orientation='h')
@@ -99,17 +133,38 @@ st.plotly_chart(fighist2)
 # figbox2.show()
 
 
+# In[41]:
+
+
+g = sns.FacetGrid(data=df, col="income", height=5, aspect=1)
+g.map(sns.boxplot, "age")
+plt.suptitle("Trend of Age", x=0.1, y=1.1, fontsize=30)
+plt.show()
+st.pyplot(g)
+
+
+# In[36]:
+
+
+g = sns.FacetGrid(data=df, col="income", height=5, aspect=1)
+g.map(sns.boxplot, "hours_per_week")
+plt.suptitle("Trend of Hours Per Week", x=0.2, y=1.1, fontsize=30)
+plt.show()
+
+st.pyplot(g)
+
+
+# In[ ]:
+
+
+# figbox1 = px.box(data_frame=df, x="age", title="Trend of Age", orientation='h')
+# st.plotly_chart(figbox1)
+
+# figbox2 = px.box(data_frame=df, x="hours_per_week", title="Trend of Hours Per Week", orientation='h')
+# st.plotly_chart(figbox2)
+
+
 # In[11]:
-
-
-figbox1 = px.box(data_frame=df, x="age", title="Trend of Age", orientation='h')
-st.plotly_chart(figbox1)
-
-figbox2 = px.box(data_frame=df, x="hours_per_week", title="Trend of Hours Per Week", orientation='h')
-st.plotly_chart(figbox2)
-
-
-# In[12]:
 
 
 st.write("**Select a categorical variable to view bar chart on the right**")
@@ -122,43 +177,76 @@ st.checkbox("Stack Bars", value=False )
 # In[27]:
 
 
-fig = plt.figure(figsize=(15,5))
-sns.countplot(x="education", data=df, hue=df.income)
-plt.title("Trend of Education", fontsize=20)
-plt.xticks(rotation=45)
+g = sns.FacetGrid(data=df, col="income", height=5, aspect=2.3)
+g.map(sns.countplot, "education")
+plt.suptitle("Trend of Education", x=0.0, y=1.2, fontsize=30)
 plt.show()
-st.pyplot(fig)
 
-fig = plt.figure(figsize=(15,5))
-sns.countplot(x="workclass", data=df, hue=df.income)
-plt.title("Trend of Workclass", fontsize=20)
+st.pyplot(g)
+
+
+# In[28]:
+
+
+g = sns.FacetGrid(data=df, col="income", height=5, aspect=2.3)
+g.map(sns.countplot, "workclass")
+plt.suptitle("Trend of Workclass", x=0.0, y=1.2, fontsize=30)
 plt.show()
-st.pyplot(fig)
 
-fig = plt.figure(figsize=(15,5))
-sns.countplot(x="sex", data=df, hue=df.income)
-plt.title("Trend of Sex", fontsize=20)
+st.pyplot(g)
+
+
+# In[29]:
+
+
+g = sns.FacetGrid(data=df, col="income", height=5, aspect=2.3)
+g.map(sns.countplot, "sex")
+plt.suptitle("Trend of Sex", x=0.0, y=1.2, fontsize=30)
 plt.show()
-st.pyplot(fig)
+
+st.pyplot(g)
 
 
-# In[53]:
+# In[30]:
 
 
-fig, ax = plt.subplots(1,2, sharex=False, figsize=(16,5))
-fig.suptitle('Main Title')
+# fig = plt.figure(figsize=(15,5))
+# sns.countplot(x="education", data=df, hue=df.income)
+# plt.title("Trend of Education", fontsize=20)
+# plt.xticks(rotation=45)
+# plt.show()
+# st.pyplot(fig)
+
+# fig = plt.figure(figsize=(15,5))
+# sns.countplot(x="workclass", data=df, hue=df.income)
+# plt.title("Trend of Workclass", fontsize=20)
+# plt.show()
+# st.pyplot(fig)
+
+# fig = plt.figure(figsize=(15,5))
+# sns.countplot(x="sex", data=df, hue=df.income)
+# plt.title("Trend of Sex", fontsize=20)
+# plt.show()
+# st.pyplot(fig)
+
+
+# In[31]:
+
+
+# fig, ax = plt.subplots(1,2, sharex=False, figsize=(16,5))
+# fig.suptitle('Main Title')
 
 
 
-sns.countplot(x="education", data=df, hue=df.income, ax=ax[0])
-ax[0].set_title('Title of the first chart')
-ax[0].tick_params('x', labelrotation=45)
+# sns.countplot(x="education", data=df, hue=df.income, ax=ax[0])
+# ax[0].set_title('Title of the first chart')
+# ax[0].tick_params('x', labelrotation=45)
 
-sns.countplot(x="sex", data=df, hue=df.income, ax=ax[1])
-ax[1].set_title('Title of the second chart')
+# sns.countplot(x="sex", data=df, hue=df.income, ax=ax[1])
+# ax[1].set_title('Title of the second chart')
 
-plt.show()
-st.pyplot(fig)
+# plt.show()
+# st.pyplot(fig)
 
 
 # In[ ]:
