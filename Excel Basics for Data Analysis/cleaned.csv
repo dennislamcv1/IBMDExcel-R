@@ -1,0 +1,54 @@
+Name,Equipment Class,Equipment Count
+Board of Elections,Van,1
+Board of Elections,Off Road VehicleEquipment,2
+Circuit Court,SUV,1
+Community Engagement Cluster,Pick Up  Trucks,8
+Community Engagement Cluster,Off Road VehicleEquipment,7
+Community Engagement Cluster,SUV,2
+Community Use of Public Facilities,Sedan,1
+Consumer Protection,Sedan,1
+Correction and Rehabilitation,Off Road VehicleEquipment,3
+Correction and Rehabilitation,Public  Safety Sedan,1
+Correction and Rehabilitation,Public  Safety SUV,2
+Correction and Rehabilitation,SUV,3
+Correction and Rehabilitation,Pick Up Trucks,1
+Correction and Rehabilitation,Van,8
+Correction and Rehabilitation,Sedan,10
+Correction and Rehabilitation,CUV,1
+County Executives Office,Sedan,2
+County Executives Office,Public Safety SUV,3
+Economic Development,SUV,1
+Environmental Protection,SUV,18
+Environmental Protection,Sedan,15
+Environmental Protection,Van,3
+Environmental Protection,CUV,1
+Environmental Protection,Medium Duty,2
+Environmental Protection,Pick Up Trucks,33
+Finance,Sedan,3
+Fire and Rescue,Public Safety SUV,27
+Fire and Rescue,Public Safety Pick Up Trucks,12
+Fire and Rescue,Public Safety Sedan,18
+Fire and Rescue,Public Safety Van,11
+Fire and Rescue,SUV,6
+Fire and Rescue,Van,4
+Fire and Rescue,Off Road VehicleEquipment,2
+Fire and Rescue,Pick Up Trucks,12
+Fire and Rescue,Sedan,1
+Fire and Rescue,Public Safety CUV,4
+Fire and Rescue,Public Safety Heavy Duty,1
+Fire and Rescue,Heavy Duty,1
+Fire and Rescue,Transit Bus,1
+General Services,Public Safety Van,1
+General Services,SUV,21
+General Services,Public Safety Heavy Duty,1
+General Services,Off Road VehicleEquipment,45
+General Services,Sedan,31
+General Services,Medium Duty,3
+General Services,Van,42
+General Services,CUV,5
+General Services,Heavy Duty,5
+General Services,Pick Up Trucks,48
+Health and Human Services,CUV,5
+Health and Human Services,Van,15
+Health and Human Services,Public Safety SUV,1
+Health and Human Services,Sedan,75
