@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/styles/sn.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork/Hands-on%20Labs/Peer%20Graded%20Assignment%20-%20Part%202/images/IDSNlogo.png" width="200" height="200">
+    <h1>Peer-Graded Assignment: Final Assignment – Part 2</h1>
+    <p><strong>Estimated time needed:</strong> 45 minutes</p>
+    <p>You have now completed the first part of this final assignment. In this second part of the final assignment, you will create some visualizations and add them to a dashboard using Cognos Analytics.</p>
+    <h2>Software Used in this Assignment</h2>
+    <p>The hands-on lab in this assignment will use the trial version of Cognos Analytics from IBM.</p>
+    <h2>Dataset Used in this Assignment</h2>
+    <p>The dataset used in this lab comes from the following source: <a href="https://community.ibm.com/accelerators?context=analytics&#x26;type=Data&#x26;product=Cognos%20Analytics&#x26;industry=Automotive&#x26;cm_mmc=Email_Newsletter-_-Developer_Ed%2BTech-_-WW_WW-_-SkillsNetwork-Courses-IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork-20531073&#x26;cm_mmca1=000026UJ&#x26;cm_mmca2=10006555&#x26;cm_mmca3=M12345678&#x26;cvosrc=email.Newsletter.M12345678&#x26;cvo_campaign=000026UJ&#x26;cm_mmc=Email_Newsletter-_-Developer_Ed%2BTech-_-WW_WW-_-SkillsNetwork-Courses-IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork-20531073&#x26;cm_mmca1=000026UJ&#x26;cm_mmca2=10006555&#x26;cm_mmca3=M12345678&#x26;cvosrc=email.Newsletter.M12345678&#x26;cvo_campaign=000026UJ" target="_blank" rel="external">https://community.ibm.com/accelerators/?context=analytics&#x26;type=Data&#x26;product=Cognos%20Analytics&#x26;industry=Automotive</a> in the <strong>IBM Accelerator Catalog</strong>. The Terms of use for such are located at <a href="https://developer.ibm.com/terms/ibm-developer-terms-of-use?cm_mmc=Email_Newsletter-_-Developer_Ed%2BTech-_-WW_WW-_-SkillsNetwork-Courses-IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork-20531073&#x26;cm_mmca1=000026UJ&#x26;cm_mmca2=10006555&#x26;cm_mmca3=M12345678&#x26;cvosrc=email.Newsletter.M12345678&#x26;cvo_campaign=000026UJ&#x26;cm_mmc=Email_Newsletter-_-Developer_Ed%2BTech-_-WW_WW-_-SkillsNetwork-Courses-IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork-20531073&#x26;cm_mmca1=000026UJ&#x26;cm_mmca2=10006555&#x26;cm_mmca3=M12345678&#x26;cvosrc=email.Newsletter.M12345678&#x26;cvo_campaign=000026UJ&#x26;cm_mmc=Email_Newsletter-_-Developer_Ed%2BTech-_-WW_WW-_-SkillsNetwork-Courses-IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork-20531073&#x26;cm_mmca1=000026UJ&#x26;cm_mmca2=10006555&#x26;cm_mmca3=M12345678&#x26;cvosrc=email.Newsletter.M12345678&#x26;cvo_campaign=000026UJ&#x26;cm_mmc=Email_Newsletter-_-Developer_Ed%2BTech-_-WW_WW-_-SkillsNetwork-Courses-IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork-20531073&#x26;cm_mmca1=000026UJ&#x26;cm_mmca2=10006555&#x26;cm_mmca3=M12345678&#x26;cvosrc=email.Newsletter.M12345678&#x26;cvo_campaign=000026UJ" target="_blank" rel="external">https://developer.ibm.com/terms/ibm-developer-terms-of-use/</a>.</p>
+    <p>We are using a modified subset of that dataset for the lab, so to follow the lab instructions successfully, please use the dataset provided with the lab, rather than the dataset from the original source.</p>
+    <h2>Assignment Scenario</h2>
+    <p>As a regional manager for a chain of car dealerships you need to build out a dashboard to allow you to understand your sales and service departments.</p>
+    <h2>Accessing the Dataset for this Final Assignment</h2>
+    <p>The dataset used in this final assignment is provided as sample data within your Cognos environment, in a data module called <strong>Auto group data module</strong>.</p>
+    <p><ins>To load and open the data module:</ins></p>
+    <ol>
+      <li>
+        <p>On the <strong>navigation panel</strong> of Cognos Analytics, select <strong>Team content</strong>. Then select <strong>Samples</strong>.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork/Hands-on%20Labs/Peer%20Graded%20Assignment%20-%20Part%202/images/AccessingSampleData.1.png" width="558" height="350">
+      </li>
+    </ol><br>
+    <ol start="2">
+      <li>
+        <p>Now go to <strong>By industry</strong> > <strong>Automotive</strong> > <strong>Data</strong>.</p>
+      </li>
+      <li>
+        <p>Here the sample data used in this final assignment can be found, in a data module called <strong>Auto group data module</strong>. Right-click on <strong>Auto group data module</strong> and select <strong>Create Dashboard</strong>.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork/Hands-on%20Labs/Peer%20Graded%20Assignment%20-%20Part%202/images/AccessingSampleData.3.png" width="484" height="450">
+      </li>
+    </ol><br>
+    <h2>Guidelines for the Submission</h2>
+    <p>Use the course videos and hands-on lab from Module 2 Lesson 2 ‘Creating Dashboards Using IBM Cognos Analytics’ to help you complete the following tasks:</p>
+    <p><ins>Create two dashboards as follows:</ins></p>
+    <ul>
+      <li>
+        <p>One dashboard using the tabbed template that has 4 small rectangles at the top and a large rectangle below - rename this dashboard tab to <strong>Sales</strong>.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork/Hands-on%20Labs/Peer%20Graded%20Assignment%20-%20Part%202/images/GuidelinesForSubmission.1.png" width="533" height="300">
+      </li>
+    </ul><br>
+    <ul>
+      <li>
+        <p>One dashboard using the 2 x 2 rectangle areas tabbed template - rename this dashboard tab to <strong>Service</strong>.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork/Hands-on%20Labs/Peer%20Graded%20Assignment%20-%20Part%202/images/GuidelinesForSubmission.2.png" width="533" height="300">
+      </li>
+    </ul><br>
+    <p><ins>Capture the following KPI metrics as visualizations:</ins></p>
+    <ol>
+      <li>
+        <p>On the <strong>Sales</strong> dashboard, capture the following KPI metrics:</p>
+        <ul>
+          <li>In the first small rectangle <strong>(Panel 1)</strong>, capture <strong>Profit</strong> (formatted to 1 decimal place in US dollars)</li>
+          <li>In the second small rectangle <strong>(Panel 2)</strong>, capture <strong>Quantity sold</strong></li>
+          <li>In the third small rectangle <strong>(Panel 3)</strong>, capture <strong>Quantity sold by model</strong> (as a bar chart)</li>
+          <li>In the fourth small rectangle <strong>(Panel 4)</strong>, capture <strong>Average quantity sold</strong></li>
+        </ul>
+      </li>
+    </ol><br>
+    <ol start="2">
+      <li>On the <strong>Sales</strong> dashboard in the large rectangle <strong>(Panel 5)</strong>, display 'Profit' by 'Dealer ID' as a column chart, sorted in ascending order.</li>
+    </ol><br>
+    <ol start="3">
+      <li>On the <strong>Service</strong> dashboard, capture the following KPI metrics as visualizations:
+        <ul>
+          <li>In the top left area <strong>(Panel 1)</strong>, capture the number of recalls per model of car (as a column chart)</li>
+          <li>In the top right area <strong>(Panel 2)</strong>, capture the customer sentiment by comparing positive, neutral, and negative reviews (as a treemap)</li>
+          <li>In the bottom left area <strong>(Panel 3)</strong>, capture the quantity of cars sold compared to number of recalls by month (as a column and line combo chart). This will help us understand when we might expect to see an increase in recalls-related service requests.</li>
+          <li>In the bottom right area <strong>(Panel 4)</strong>, capture the number of recalls by model and affected system (as a heat map). This will help us understand if there are any outliers for a given model or a specific system.</li>
+        </ul>
+      </li>
+    </ol><br>
+    <ol start="4">
+      <li>
+        <p>To export your dashboard as a PDF, follow instructions below:</p>
+        <ul>
+          <li>
+            <p>On the application toolbar of your <strong>dashboard page</strong>, click <strong>Share</strong> icon.</p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork/Hands-on%20Labs/Peer%20Graded%20Assignment%20-%20Part%202/images/4.1.png" width="368" height="100"><br>
+          </li>
+          <li>
+            <p>On the <strong>Export</strong> tab, check <strong>Include filters</strong> and click <strong>Export</strong>.</p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork/Hands-on%20Labs/Peer%20Graded%20Assignment%20-%20Part%202/images/4.2.png" width="300" height="375"><br>
+          </li>
+          <li>
+            <p>On the <strong>Print</strong> pop-up page, in the <strong>Destination</strong> drop-down list, select <strong>Save as PDF</strong>.</p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork/Hands-on%20Labs/Peer%20Graded%20Assignment%20-%20Part%202/images/4.3.png" width="300" height="600"><br>
+          </li>
+          <li>
+            <p>Save the PDF file on your local machine to any location you like (preferably your <strong>Downloads</strong> folder) for later upload and submission to the coursera platform.</p>
+          </li>
+        </ul>
+      </li>
+    </ol>
+    <h2>Grading Information</h2>
+    <p>For your assignment to be graded in a subsequent step in the course, you will be required to upload the PDFs of your Cognos Analytics dashboards that you exported to your Downloads folder in Task 4. You will upload these exported PDFs to the Coursera platform as part of your submission. (<strong>Important:</strong> If you cannnot export your dashboards as PDFs for any reason, then you must take screenshots of your two dashboards, and submit these for grading instead).</p>
+    <p><ins>The <strong>main grading criteria</strong> will be:</ins></p>
+    <ul>
+      <li>Have the correct tabs been created?</li>
+      <li>Have you captured the correct metrics?</li>
+      <li>Are the results correct?</li>
+      <li>Have you used the appropriate visualizations on the dashboard?</li>
+    </ul>
+    <p><ins>You <strong>will not be judged</strong> on:</ins></p>
+    <ul>
+      <li>Your English language, including spelling or grammatical mistakes.</li>
+      <li>The content of any text or image(s) or where a link is hyperlinked to.</li>
+    </ul>
+    <h2>Author(s)</h2>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/stevelryan?cm_mmc=Email_Newsletter-_-Developer_Ed%2BTech-_-WW_WW-_-SkillsNetwork-Courses-IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork-20531073&#x26;cm_mmca1=000026UJ&#x26;cm_mmca2=10006555&#x26;cm_mmca3=M12345678&#x26;cvosrc=email.Newsletter.M12345678&#x26;cvo_campaign=000026UJ" target="_blank" rel="external">Steve Ryan</a></li>
+    </ul>
+    <h3>Other Contributor(s)</h3>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/sandipsahajoy?cm_mmc=Email_Newsletter-_-Developer_Ed%2BTech-_-WW_WW-_-SkillsNetwork-Courses-IBMDeveloperSkillsNetwork-DV0130EN-SkillsNetwork-20531073&#x26;cm_mmca1=000026UJ&#x26;cm_mmca2=10006555&#x26;cm_mmca3=M12345678&#x26;cvosrc=email.Newsletter.M12345678&#x26;cvo_campaign=000026UJ" target="_blank" rel="external">Sandip Saha Joy</a></li>
+    </ul>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-10-21</td>
+          <td>1.2</td>
+          <td>Steve Ryan</td>
+          <td>Added steps to Export as PDF</td>
+        </tr>
+        <tr>
+          <td>2020-10-13</td>
+          <td>1.1</td>
+          <td>Sandip Saha Joy</td>
+          <td>ID review</td>
+        </tr>
+        <tr>
+          <td>2020-10-12</td>
+          <td>0.1</td>
+          <td>Steve Ryan</td>
+          <td>Initial version created in GitLab</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2020. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.min.js"></script>
+  </body>
+</html>
